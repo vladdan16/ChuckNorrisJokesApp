@@ -40,6 +40,8 @@ class _HomePageState extends State<HomePage> {
         print(jsonResponse['value']);
       }
       _joke = jsonResponse['value'];
+    } else {
+      throw Exception('Error was handled!');
     }
   }
 
@@ -68,32 +70,44 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: Center(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Image.asset('assets/images/newChuckNorris.png'),
             const SizedBox(
-              height: 100,
+              height: 70,
             ),
-            Text(
-              _joke,
-              style: const TextStyle(
-                fontSize: 30,
+            Container(
+              margin: const EdgeInsets.only(left: 20, right: 20),
+              decoration: BoxDecoration(
+                color: Colors.yellow[100],
+                border: Border.all(
+                  width: 3,
+                  color: Colors.cyan,
+                ),
               ),
-
+              child: Text(
+                _joke,
+                style: const TextStyle(
+                  fontSize: 30,
+                ),
+              ),
             ),
-            IconButton(
-              icon: const Icon(
-                Icons.thumb_up,
-                color: Colors.red,
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.thumb_up,
+                  color: Colors.red,
+                ),
+                iconSize: 60,
+                onPressed: () {
+                  setState(() => {});
+                  getNewJoke();
+                  if (kDebugMode) {
+                    print('Thumb up button has been pressed');
+                  }
+                },
               ),
-              iconSize: 40,
-              onPressed: () {
-                getNewJoke();
-                setState(() => {});
-                if (kDebugMode) {
-                  print('Thumb up button has been pressed');
-                }
-              },
             ),
           ],
         ),
