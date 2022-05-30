@@ -45,6 +45,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    getNewJoke();
     super.initState();
     if (kDebugMode) {
       print("Init State");
