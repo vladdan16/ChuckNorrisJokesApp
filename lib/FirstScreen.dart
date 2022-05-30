@@ -31,6 +31,8 @@ class _HomePageState extends State<HomePage> {
 
   String _joke = "Press button to see joke";
 
+  bool ifStart = true;
+
   void getNewJoke() async {
     var url = Uri.parse('https://api.chucknorris.io/jokes/random');
     var response = await http.get(url);
@@ -95,14 +97,15 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: IconButton(
-                icon: const Icon(
-                  Icons.thumb_up,
+                icon: Icon(
+                  ifStart ? Icons.play_arrow : Icons.thumb_up,
                   color: Colors.red,
                 ),
                 iconSize: 60,
                 onPressed: () {
                   setState(() => {});
                   getNewJoke();
+                  ifStart = false;
                   if (kDebugMode) {
                     print('Thumb up button has been pressed');
                   }
