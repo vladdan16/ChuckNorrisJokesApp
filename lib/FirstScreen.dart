@@ -28,8 +28,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  String _joke = "Press button to see joke";
+  String _joke = "Press the button to see joke";
 
   bool ifStart = true;
 
@@ -37,7 +36,8 @@ class _HomePageState extends State<HomePage> {
     var url = Uri.parse('https://api.chucknorris.io/jokes/random');
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var jsonResponse =
+          convert.jsonDecode(response.body) as Map<String, dynamic>;
       if (kDebugMode) {
         print(jsonResponse['value']);
       }
@@ -71,51 +71,52 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: ListView(
-          children: <Widget>[
-            Image.asset('assets/images/newChuckNorris.png'),
-            const SizedBox(
-              height: 70,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
-              decoration: BoxDecoration(
-                color: Colors.yellow[100],
-                border: Border.all(
-                  width: 3,
-                  color: Colors.cyan,
+      body: SafeArea(
+        child: Center(
+          child: ListView(
+            children: <Widget>[
+              Image.asset('assets/images/newChuckNorris.png'),
+              const SizedBox(
+                height: 70,
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 20, right: 20),
+                decoration: BoxDecoration(
+                  color: Colors.yellow[100],
+                  border: Border.all(
+                    width: 3,
+                    color: Colors.cyan,
+                  ),
+                ),
+                child: Text(
+                  _joke,
+                  style: const TextStyle(
+                    fontSize: 30,
+                  ),
                 ),
               ),
-              child: Text(
-                _joke,
-                style: const TextStyle(
-                  fontSize: 30,
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: IconButton(
+                  icon: Icon(
+                    ifStart ? Icons.play_arrow : Icons.thumb_up,
+                    color: Colors.red,
+                  ),
+                  iconSize: 60,
+                  onPressed: () {
+                    setState(() => {});
+                    getNewJoke();
+                    ifStart = false;
+                    if (kDebugMode) {
+                      print('Thumb up button has been pressed');
+                    }
+                  },
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: IconButton(
-                icon: Icon(
-                  ifStart ? Icons.play_arrow : Icons.thumb_up,
-                  color: Colors.red,
-                ),
-                iconSize: 60,
-                onPressed: () {
-                  setState(() => {});
-                  getNewJoke();
-                  ifStart = false;
-                  if (kDebugMode) {
-                    print('Thumb up button has been pressed');
-                  }
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
