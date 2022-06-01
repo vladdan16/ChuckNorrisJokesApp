@@ -11,7 +11,7 @@ class MyClass extends StatelessWidget {
     return MaterialApp(
       title: 'ChuckNorrisJokesApp',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        //primarySwatch: Colors.blue,
         fontFamily: 'Kanit',
       ),
       home: const HomePage(title: 'Tinder with Chuck'),
@@ -98,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 25,
+                    fontFamily: "KanitItalic",
                   ),
                 ),
               ),

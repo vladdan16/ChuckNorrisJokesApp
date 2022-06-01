@@ -80,9 +80,12 @@ flutter:
 #        - asset: fonts/Schyler-Regular.ttf
 #        - asset: fonts/Schyler-Italic.ttf
 #          style: italic
-    - family: Kanit
+    - family: KanitItalic
       fonts:
         - asset: assets/fonts/Kanit/Kanit-MediumItalic.ttf
+    - family: Kanit
+      fonts:
+        - asset: assets/fonts/Kanit/Kanit-Medium.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
