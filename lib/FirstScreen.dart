@@ -12,6 +12,7 @@ class MyClass extends StatelessWidget {
       title: 'ChuckNorrisJokesApp',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Kanit',
       ),
       home: const HomePage(title: 'Tinder with Chuck'),
     );
@@ -43,7 +44,10 @@ class _HomePageState extends State<HomePage> {
       }
       _joke = jsonResponse['value'];
     } else {
-      throw Exception('Error was handled!');
+      if (kDebugMode) {
+        print("Error was handled");
+      }
+      _joke = "Check your internet connection";
     }
   }
 
@@ -66,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         title: Text(
           widget.title,
           style: const TextStyle(
-            fontSize: 25,
+            fontSize: 30,
           ),
         ),
         centerTitle: true,
@@ -75,23 +79,25 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: ListView(
             children: <Widget>[
-              Image.asset('assets/images/newChuckNorris.png'),
+              Image.asset('assets/images/ChuckNorrisFace.jpg'),
               const SizedBox(
-                height: 70,
+                height: 20,
               ),
               Container(
                 margin: const EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
                 decoration: BoxDecoration(
                   color: Colors.yellow[100],
-                  border: Border.all(
-                    width: 3,
-                    color: Colors.cyan,
-                  ),
+                  // border: Border.all(
+                  //   width: 3,
+                  //   color: Colors.cyan,
+                  // ),
                 ),
                 child: Text(
                   _joke,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 30,
+                    fontSize: 25,
                   ),
                 ),
               ),
