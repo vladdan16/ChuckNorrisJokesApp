@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
     }
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purple[400],
         title: Text(
           widget.title,
           style: const TextStyle(
@@ -76,53 +77,60 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Center(
-          child: ListView(
-            children: <Widget>[
-              Image.asset('assets/images/ChuckNorrisFace.jpg'),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
-                decoration: BoxDecoration(
-                  color: Colors.yellow[100],
-                  // border: Border.all(
-                  //   width: 3,
-                  //   color: Colors.cyan,
-                  // ),
-                ),
-                child: Text(
-                  _joke,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 25,
-                    fontFamily: "KanitItalic",
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: IconButton(
-                  icon: Icon(
-                    ifStart ? Icons.play_arrow : Icons.thumb_up,
-                    color: Colors.red,
-                  ),
-                  iconSize: 60,
-                  onPressed: () {
-                    setState(() => {});
-                    getNewJoke();
-                    ifStart = false;
-                    if (kDebugMode) {
-                      print('Thumb up button has been pressed');
-                    }
-                  },
-                ),
-              ),
-            ],
+        child: Stack(children: [
+          Container(
+            decoration: const BoxDecoration(
+              color: Color.fromRGBO(247, 248, 243, 1.0),
+            ),
           ),
-        ),
+          Center(
+            child: ListView(
+              children: <Widget>[
+                Image.asset('assets/images/ChuckNorrisFace.jpg'),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 20, right: 20),
+                  padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+                  decoration: BoxDecoration(
+                    color: Colors.yellow[100],
+                    // border: Border.all(
+                    //   width: 3,
+                    //   color: Colors.cyan,
+                    // ),
+                  ),
+                  child: Text(
+                    _joke,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontFamily: "KanitItalic",
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: IconButton(
+                    icon: Icon(
+                      ifStart ? Icons.play_arrow : Icons.thumb_up,
+                      color: Colors.red,
+                    ),
+                    iconSize: 60,
+                    onPressed: () {
+                      setState(() => {});
+                      getNewJoke();
+                      ifStart = false;
+                      if (kDebugMode) {
+                        print('Thumb up button has been pressed');
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ]),
       ),
     );
   }
