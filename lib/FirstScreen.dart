@@ -33,32 +33,6 @@ class _HomePageState extends State<HomePage> {
 
   bool ifStart = true;
 
-  List<Widget> _cardList = [];
-
-  void newJokeWidget() {
-    getNewJoke();
-    ifStart = false;
-    setState(() {
-      _cardList.add(
-        Container(
-          margin: const EdgeInsets.only(left: 20, right: 20),
-          padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
-          decoration: BoxDecoration(
-            color: Colors.yellow[100],
-          ),
-          child: Text(
-            _joke,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 25,
-              fontFamily: "KanitItalic",
-            ),
-          ),
-        ),
-      );
-    });
-  }
-
   void getNewJoke() async {
     var url = Uri.parse('https://api.chucknorris.io/jokes/random');
     var response = await http.get(url);
@@ -119,7 +93,9 @@ class _HomePageState extends State<HomePage> {
                 Dismissible(
                   key: UniqueKey(),
                   onDismissed: (direction) {
-                    newJokeWidget();
+                    getNewJoke();
+                    ifStart = false;
+                    setState(() {});
                   },
                   background: Container(
                     alignment: Alignment.center,
