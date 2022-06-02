@@ -1,4 +1,5 @@
 import 'dart:convert' as convert;
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -34,19 +35,22 @@ class _HomePageState extends State<HomePage> {
   bool ifStart = true;
 
   void getNewJoke() async {
-    var url = Uri.parse('https://api.chucknorris.io/jokes/random');
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse =
-          convert.jsonDecode(response.body) as Map<String, dynamic>;
-      if (kDebugMode) {
-        print(jsonResponse['value']);
+    try {
+      final result =
+          await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        var url = Uri.parse('https://api.chucknorris.io/jokes/random');
+        var response = await http.get(url);
+        if (response.statusCode == 200) {
+          var jsonResponse =
+              convert.jsonDecode(response.body) as Map<String, dynamic>;
+          if (kDebugMode) {
+            print(jsonResponse['value']);
+          }
+          _joke = jsonResponse['value'];
+        }
       }
-      _joke = jsonResponse['value'];
-    } else {
-      if (kDebugMode) {
-        print("Error was handled");
-      }
+    } on SocketException catch (_) {
       _joke = "Check your internet connection";
     }
   }
