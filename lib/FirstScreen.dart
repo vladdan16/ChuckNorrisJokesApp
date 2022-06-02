@@ -1,9 +1,9 @@
-import 'dart:convert' as convert;
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 class MyClass extends StatelessWidget {
   const MyClass({Key? key}) : super(key: key);
@@ -13,7 +13,6 @@ class MyClass extends StatelessWidget {
     return MaterialApp(
       title: 'ChuckNorrisJokesApp',
       theme: ThemeData(
-        //primarySwatch: Colors.blue,
         fontFamily: 'Kanit',
       ),
       home: const HomePage(title: 'Tinder with Chuck'),
@@ -118,13 +117,12 @@ class _HomePageState extends State<HomePage> {
                   },
                   background: Container(
                     alignment: Alignment.center,
-                    color: Colors.blue[300],
                     child: const Padding(
                       padding: EdgeInsets.only(left: 50, right: 50),
                       child: Icon(
                         Icons.favorite,
                         size: 70,
-                        color: Colors.white,
+                        color: Colors.red,
                       ),
                     ),
                   ),
@@ -149,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                   child: IconButton(
                     icon: Icon(
                       ifStart ? Icons.play_arrow : Icons.thumb_up,
-                      color: Colors.red,
+                      color: Colors.green[400],
                     ),
                     iconSize: 60,
                     onPressed: () {
