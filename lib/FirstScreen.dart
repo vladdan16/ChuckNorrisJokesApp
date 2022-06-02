@@ -50,8 +50,7 @@ class _HomePageState extends State<HomePage> {
 
   void getNewJoke() async {
     try {
-      final result =
-          await InternetAddress.lookup('example.com');
+      final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         var url = Uri.parse('https://api.chucknorris.io/jokes/random');
         var response = await http.get(url);
@@ -104,7 +103,9 @@ class _HomePageState extends State<HomePage> {
           Center(
             child: ListView(
               children: <Widget>[
-                Image.asset(images[random.nextInt(images.length)]),
+                SizedBox(
+                  height: 290,
+                  child: Image.asset(images[random.nextInt(images.length)])),
                 const SizedBox(
                   height: 20,
                 ),
