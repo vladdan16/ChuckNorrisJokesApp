@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   background: Container(
                     alignment: Alignment.center,
-                    color: Colors.blue,
+                    color: Colors.blue[300],
                     child: const Padding(
                       padding: EdgeInsets.only(left: 50, right: 50),
                       child: Icon(
