@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
     'assets/images/ChuckNorris6.png',
     'assets/images/ChuckNorris7.png',
     'assets/images/ChuckNorris8.png',
-    'assets/images/ChuckNorris10.png',
     'assets/images/ChuckNorris11.png',
     'assets/images/ChuckNorris12.png',
     'assets/images/ChuckNorris26.png',
