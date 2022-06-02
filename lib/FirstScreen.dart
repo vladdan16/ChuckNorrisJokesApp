@@ -29,9 +29,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _joke = "Press the button to see joke";
+  String _joke = "Swipe this text or press the button to see joke";
 
   bool ifStart = true;
+
+  List<Widget> _cardList = [];
+
+  void newJokeWidget() {
+    getNewJoke();
+    ifStart = false;
+    setState(() {
+      _cardList.add(
+        Container(
+          margin: const EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+          decoration: BoxDecoration(
+            color: Colors.yellow[100],
+          ),
+          child: Text(
+            _joke,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 25,
+              fontFamily: "KanitItalic",
+            ),
+          ),
+        ),
+      );
+    });
+  }
 
   void getNewJoke() async {
     var url = Uri.parse('https://api.chucknorris.io/jokes/random');
@@ -90,22 +116,36 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  margin: const EdgeInsets.only(left: 20, right: 20),
-                  padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
-                  decoration: BoxDecoration(
-                    color: Colors.yellow[100],
-                    // border: Border.all(
-                    //   width: 3,
-                    //   color: Colors.cyan,
-                    // ),
+                Dismissible(
+                  key: UniqueKey(),
+                  onDismissed: (direction) {
+                    newJokeWidget();
+                  },
+                  background: Container(
+                    alignment: Alignment.center,
+                    color: Colors.blue,
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 50, right: 50),
+                      child: Icon(
+                        Icons.favorite,
+                        size: 70,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                  child: Text(
-                    _joke,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontFamily: "KanitItalic",
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+                    decoration: BoxDecoration(
+                      color: Colors.yellow[100],
+                    ),
+                    child: Text(
+                      _joke,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontFamily: "KanitItalic",
+                      ),
                     ),
                   ),
                 ),
