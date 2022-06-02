@@ -1,5 +1,6 @@
 import 'dart:convert' as convert;
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -31,6 +32,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String _joke = "Swipe this text or press the button to see joke";
+
+  List<String> images = [
+    'assets/images/ChuckNorris6.png',
+    'assets/images/ChuckNorris7.png',
+    'assets/images/ChuckNorris8.png',
+    'assets/images/ChuckNorris10.png',
+    'assets/images/ChuckNorris11.png',
+    'assets/images/ChuckNorris12.png',
+    'assets/images/ChuckNorris26.png',
+    'assets/images/ChuckNorris29.png',
+    'assets/images/ChuckNorris31.png',
+  ];
+
+  Random random = Random();
 
   bool ifStart = true;
 
@@ -90,7 +105,7 @@ class _HomePageState extends State<HomePage> {
           Center(
             child: ListView(
               children: <Widget>[
-                Image.asset('assets/images/ChuckNorrisFace.jpg'),
+                Image.asset(images[random.nextInt(images.length)]),
                 const SizedBox(
                   height: 20,
                 ),
