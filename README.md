@@ -16,11 +16,6 @@ And on the following images you examples of screen with joke.
 ![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/screen1.jpg "a title")
 ![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/screen2.jpg "a title")
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials, samples, guidance on
-mobile development, and a full API reference.
+I used a [https://api.chucknorris.io/](https://api.chucknorris.io/) as a source of jokes. All images
+are taken
+from [https://www.freepngs.com/chuck-norris-pngs](https://www.freepngs.com/chuck-norris-pngs).
