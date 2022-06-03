@@ -1,12 +1,15 @@
-# Tinder with Chuck Norris 
+# Tinder with Chuck Norris
 
 It is Flutter project.
 
 ## Getting Started
 
-This android app allows viewing jokes about Chuck Norris.
+In this repository you will find my Tinder with Chuck Norris sample-app. This android app allows
+viewing jokes about Chuck Norris.
 
+On the start screen you see the image and text with small instruction.
 
+![Alt text](https://assets.digitalocean.com/articles/alligator/boo.svg "a title")
 
 A few resources to get you started if this is your first Flutter project:
 
@@ -14,5 +17,5 @@ A few resources to get you started if this is your first Flutter project:
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
 For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[online documentation](https://docs.flutter.dev/), which offers tutorials, samples, guidance on
+mobile development, and a full API reference.

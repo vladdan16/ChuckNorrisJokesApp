@@ -30,8 +30,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //Text that will be shown to user
   String _joke = "Swipe this text or press the button to see joke";
 
+  //List of images
   List<String> images = [
     'assets/images/ChuckNorris6.png',
     'assets/images/ChuckNorris7.png',
@@ -103,8 +105,8 @@ class _HomePageState extends State<HomePage> {
             child: ListView(
               children: <Widget>[
                 SizedBox(
-                  height: 290,
-                  child: Image.asset(images[random.nextInt(images.length)])),
+                    height: 290,
+                    child: Image.asset(images[random.nextInt(images.length)])),
                 const SizedBox(
                   height: 20,
                 ),
