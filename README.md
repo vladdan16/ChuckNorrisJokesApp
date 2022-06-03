@@ -1,10 +1,12 @@
-# first_flutter_project
+# Tinder with Chuck Norris 
 
-A new Flutter project.
+It is Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This android app allows viewing jokes about Chuck Norris.
+
+
 
 A few resources to get you started if this is your first Flutter project:
 
