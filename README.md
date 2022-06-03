@@ -9,7 +9,12 @@ viewing jokes about Chuck Norris.
 
 On the start screen you see the image and text with small instruction.
 
-![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/assets/images/ChuckNorris11.png "a title")
+![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/startscreen.jpg "a title")
+
+And on the following images you examples of screen with joke.
+
+![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/screen1.jpg "a title")
+![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/screen2.jpg "a title")
 
 A few resources to get you started if this is your first Flutter project:
 
