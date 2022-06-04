@@ -45,10 +45,13 @@ class _HomePageState extends State<HomePage> {
     'assets/images/ChuckNorris31.png',
   ];
 
+  //Random is needed for choosing a random image for showing
   Random random = Random();
 
+  //Flag to identify if the application is on start state
   bool ifStart = true;
 
+  //Function to get new joke from api
   void getNewJoke() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -104,12 +107,14 @@ class _HomePageState extends State<HomePage> {
           Center(
             child: ListView(
               children: <Widget>[
+                //Widget for showing an image with Chuck Norris
                 SizedBox(
                     height: 290,
                     child: Image.asset(images[random.nextInt(images.length)])),
                 const SizedBox(
                   height: 20,
                 ),
+                //Dismissible widget for text of joke, to perform swipe
                 Dismissible(
                   key: UniqueKey(),
                   onDismissed: (direction) {
@@ -144,6 +149,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+                //Widget for button
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: IconButton(
