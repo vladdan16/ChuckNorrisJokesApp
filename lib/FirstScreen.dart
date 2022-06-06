@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
+List<String> favoriteJokes = [];
+
 class MyClass extends StatelessWidget {
   const MyClass({Key? key}) : super(key: key);
 
@@ -35,14 +37,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //Text that will be shown to user
   String _joke = "Swipe this text or press the button to see joke";
-  String _previousJoke = "";
+
+  List<String> titles = [
+    'Tinder with Chuck',
+    'Your favorite jokes',
+  ];
+
+  bool getJoke = false;
 
   int pageIndex = 0;
 
   final pages = [
-    const Page2(),
-    const Page3(),
-    const Page4(),
+    null,
+    FavoriteJokes(
+      title: 'title',
+    ),
   ];
 
   int imageIndex = 0;
@@ -69,31 +78,44 @@ class _HomePageState extends State<HomePage> {
   //Flag to identify if the application is on start state
   bool ifStart = true;
 
-  //Function to get new joke from api
-  void getNewJoke() async {
-    _previousJoke = _joke;
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        var url = Uri.parse('https://api.chucknorris.io/jokes/random');
-        var response = await http.get(url);
-        if (response.statusCode == 200) {
-          var jsonResponse =
-              convert.jsonDecode(response.body) as Map<String, dynamic>;
-          if (kDebugMode) {
-            print(jsonResponse['value']);
-          }
-          _joke = jsonResponse['value'];
-        }
-      }
-    } on SocketException catch (_) {
-      _joke = "Check your internet connection";
+  void func() {
+    if (kDebugMode) {
+      print("func");
     }
   }
 
+  //Function to get new joke from api
+  Future<void> getNewJoke() async {
+    if (getJoke) {
+      try {
+        final result = await InternetAddress.lookup('example.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          var url = Uri.parse('https://api.chucknorris.io/jokes/random');
+          var response = await http.get(url);
+          if (response.statusCode == 200) {
+            var jsonResponse =
+                convert.jsonDecode(response.body) as Map<String, dynamic>;
+            if (kDebugMode) {
+              print(jsonResponse['value']);
+            }
+            _joke = jsonResponse['value'];
+          }
+        }
+      } on SocketException catch (_) {
+        _joke = "Check your internet connection";
+      }
+      getJoke = false;
+    }
+  }
+
+  // Future<String> getNewJoke() {
+  //   return Future.delayed(Duration(seconds: 2), () {
+  //     return "Data";
+  //   });
+  // }
+
   @override
   void initState() {
-    getNewJoke();
     super.initState();
     if (kDebugMode) {
       print("Init State");
@@ -109,7 +131,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.purple[400],
         title: Text(
-          widget.title,
+          titles[pageIndex],
           style: const TextStyle(
             fontSize: 30,
           ),
@@ -121,7 +143,7 @@ class _HomePageState extends State<HomePage> {
               child: Stack(children: [
                 Container(
                   decoration: const BoxDecoration(
-                    color: Color.fromRGBO(247, 248, 243, 1.0),
+                    color: Colors.white,
                   ),
                 ),
                 Center(
@@ -137,7 +159,10 @@ class _HomePageState extends State<HomePage> {
                       Dismissible(
                         key: UniqueKey(),
                         onDismissed: (direction) {
-                          getNewJoke();
+                          if (direction == DismissDirection.startToEnd) {
+                            favoriteJokes.add(_joke);
+                          }
+                          getJoke = true;
                           changeImage();
                           ifStart = false;
                           setState(() {});
@@ -171,13 +196,49 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.yellow[100],
                           ),
-                          child: Text(
-                            _joke,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 25,
-                              fontFamily: "KanitItalic",
-                            ),
+                          child: FutureBuilder(
+                            key: UniqueKey(),
+                            builder: (context, snapshot) {
+                              if (kDebugMode) {
+                                print(snapshot.connectionState);
+                              }
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.hasError) {
+                                  return const Text(
+                                    "Check your Internet connection",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontFamily: "KanitItalic",
+                                    ),
+                                  );
+                                } else {
+                                  return Text(
+                                    _joke,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 25,
+                                      fontFamily: "KanitItalic",
+                                    ),
+                                  );
+                                }
+                              }
+                              return Text(
+                                "State: ${snapshot.connectionState}",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 25,
+                                  fontFamily: "KanitItalic",
+                                ),
+                              );
+                            },
+                            future: getNewJoke(),
                           ),
                         ),
                       ),
@@ -195,7 +256,8 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       iconSize: 60,
                                       onPressed: () {
-                                        getNewJoke();
+                                        favoriteJokes.add(_joke);
+                                        getJoke = true;
                                         changeImage();
                                         setState(() {});
                                         ifStart = false;
@@ -216,7 +278,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       iconSize: 60,
                                       onPressed: () {
-                                        getNewJoke();
+                                        getJoke = true;
                                         changeImage();
                                         setState(() {});
                                         ifStart = false;
@@ -234,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 iconSize: 80,
                                 onPressed: () {
-                                  getNewJoke();
+                                  getJoke = true;
                                   changeImage();
                                   setState(() {});
                                   ifStart = false;
@@ -253,10 +315,10 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: Container(
         height: 60,
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
+          color: Colors.purple[400],
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
           ),
         ),
         child: Row(
@@ -283,26 +345,24 @@ class _HomePageState extends State<HomePage> {
                 });
               },
               icon: Icon(
-                pageIndex == 1
-                    ? Icons.work_rounded
-                    : Icons.work_outline_outlined,
+                pageIndex == 1 ? Icons.favorite : Icons.favorite_outline,
                 color: Colors.white,
                 size: 35,
               ),
             ),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  pageIndex = 2;
-                });
-              },
-              icon: Icon(
-                pageIndex == 2 ? Icons.widgets_rounded : Icons.widgets_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
+            // IconButton(
+            //   enableFeedback: false,
+            //   onPressed: () {
+            //     setState(() {
+            //       pageIndex = 2;
+            //     });
+            //   },
+            //   icon: Icon(
+            //     pageIndex == 2 ? Icons.widgets_rounded : Icons.widgets_outlined,
+            //     color: Colors.white,
+            //     size: 35,
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -310,65 +370,33 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class Page2 extends StatelessWidget {
-  const Page2({Key? key}) : super(key: key);
+class FavoriteJokes extends StatefulWidget {
+  const FavoriteJokes({Key? key, required this.title}) : super(key: key);
+
+  final String title;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xffC4DFCB),
-      child: Center(
-        child: Text(
-          "Page Number 2",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
+  _FavoriteJokesState createState() => _FavoriteJokesState();
 }
 
-class Page3 extends StatelessWidget {
-  const Page3({Key? key}) : super(key: key);
-
+class _FavoriteJokesState extends State<FavoriteJokes> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xffC4DFCB),
-      child: Center(
-        child: Text(
-          "Page Number 3",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Page4 extends StatelessWidget {
-  const Page4({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xffC4DFCB),
-      child: Center(
-        child: Text(
-          "Page Number 4",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
+    return SafeArea(
+      child: ListView.builder(
+          itemCount: favoriteJokes.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              leading: const Icon(Icons.list),
+              title: Text(
+                favoriteJokes[index],
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontFamily: "KanitItalic",
+                ),
+              ),
+            );
+          }),
     );
   }
 }
