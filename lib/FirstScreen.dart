@@ -36,7 +36,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   //Text that will be shown to user
-  String _joke = "Swipe this text or press the button to see joke";
+  String _joke =
+      "Swipe this text or press the button to see joke\nNote: If you like joke, swipe to right, else swipe to left";
+
+  String _startMessage =
+      "Swipe this text or press the button to see joke\nNote: If you like joke, swipe to right, else swipe to left";
 
   List<String> titles = [
     'Tinder with Chuck',
@@ -148,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                         key: UniqueKey(),
                         onDismissed: (direction) {
                           if (direction == DismissDirection.startToEnd) {
-                            if (_joke != "Check your internet connection") {
+                            if (_joke != "Check your internet connection" && !ifStart) {
                               favoriteJokes.add(_joke);
                             }
                           }
@@ -212,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                                   );
                                 } else {
                                   return Text(
-                                    _joke,
+                                    ifStart ? _startMessage : _joke,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                       fontSize: 25,
@@ -248,8 +252,11 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       iconSize: 60,
                                       onPressed: () {
-                                        if (_joke != "Check your internet connection") {
+                                        if (_joke !=
+                                            "Check your internet connection" && !ifStart) {
                                           favoriteJokes.add(_joke);
+                                        }
+                                        if (_joke != "Check your internet connection") {
                                           changeImage();
                                         }
                                         getJoke = true;
@@ -421,7 +428,6 @@ class _FavoriteJokesState extends State<FavoriteJokes> {
                     },
                   ),
                 ),
-
               ),
             );
             // return ListTile(
