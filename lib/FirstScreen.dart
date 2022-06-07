@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-List<String> favoriteJokes = [];
+Set<String> favoriteJokes = {};
 
 class MyClass extends StatelessWidget {
   const MyClass({Key? key}) : super(key: key);
@@ -78,12 +78,6 @@ class _HomePageState extends State<HomePage> {
   //Flag to identify if the application is on start state
   bool ifStart = true;
 
-  void func() {
-    if (kDebugMode) {
-      print("func");
-    }
-  }
-
   //Function to get new joke from api
   Future<void> getNewJoke() async {
     if (getJoke) {
@@ -107,12 +101,6 @@ class _HomePageState extends State<HomePage> {
       getJoke = false;
     }
   }
-
-  // Future<String> getNewJoke() {
-  //   return Future.delayed(Duration(seconds: 2), () {
-  //     return "Data";
-  //   });
-  // }
 
   @override
   void initState() {
@@ -160,10 +148,14 @@ class _HomePageState extends State<HomePage> {
                         key: UniqueKey(),
                         onDismissed: (direction) {
                           if (direction == DismissDirection.startToEnd) {
-                            favoriteJokes.add(_joke);
+                            if (_joke != "Check your internet connection") {
+                              favoriteJokes.add(_joke);
+                            }
+                          }
+                          if (_joke != "Check your internet connection") {
+                            changeImage();
                           }
                           getJoke = true;
-                          changeImage();
                           ifStart = false;
                           setState(() {});
                         },
@@ -211,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                                   ConnectionState.done) {
                                 if (snapshot.hasError) {
                                   return const Text(
-                                    "Check your Internet connection",
+                                    "Check your internet connection",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 25,
@@ -256,9 +248,11 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       iconSize: 60,
                                       onPressed: () {
-                                        favoriteJokes.add(_joke);
+                                        if (_joke != "Check your internet connection") {
+                                          favoriteJokes.add(_joke);
+                                          changeImage();
+                                        }
                                         getJoke = true;
-                                        changeImage();
                                         setState(() {});
                                         ifStart = false;
                                         if (kDebugMode) {
@@ -313,13 +307,9 @@ class _HomePageState extends State<HomePage> {
             )
           : pages[pageIndex],
       bottomNavigationBar: Container(
-        height: 60,
+        height: 50,
         decoration: BoxDecoration(
           color: Colors.purple[400],
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -327,9 +317,11 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               enableFeedback: false,
               onPressed: () {
-                setState(() {
-                  pageIndex = 0;
-                });
+                if (pageIndex != 0) {
+                  setState(() {
+                    pageIndex = 0;
+                  });
+                }
               },
               icon: Icon(
                 pageIndex == 0 ? Icons.home_filled : Icons.home_outlined,
@@ -340,9 +332,11 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               enableFeedback: false,
               onPressed: () {
-                setState(() {
-                  pageIndex = 1;
-                });
+                if (pageIndex != 1) {
+                  setState(() {
+                    pageIndex = 1;
+                  });
+                }
               },
               icon: Icon(
                 pageIndex == 1 ? Icons.favorite : Icons.favorite_outline,
@@ -376,7 +370,7 @@ class FavoriteJokes extends StatefulWidget {
   final String title;
 
   @override
-  _FavoriteJokesState createState() => _FavoriteJokesState();
+  State<FavoriteJokes> createState() => _FavoriteJokesState();
 }
 
 class _FavoriteJokesState extends State<FavoriteJokes> {
@@ -385,17 +379,61 @@ class _FavoriteJokesState extends State<FavoriteJokes> {
     return SafeArea(
       child: ListView.builder(
           itemCount: favoriteJokes.length,
+          //physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
-            return ListTile(
-              leading: const Icon(Icons.list),
-              title: Text(
-                favoriteJokes[index],
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontFamily: "KanitItalic",
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Card(
+                color: Colors.yellow[100],
+                elevation: 10,
+                key: UniqueKey(),
+                //shadowColor: Colors.lightBlueAccent,
+                margin: const EdgeInsets.symmetric(vertical: 6),
+                child: ListTile(
+                  // title: Text(
+                  //   "Joke ${index + 1}",
+                  //   style: const TextStyle(
+                  //     fontSize: 20,
+                  //     fontFamily: "KanitItalic"
+                  //   ),
+                  // ),
+                  subtitle: Text(
+                    favoriteJokes.elementAt(index),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontFamily: "KanitItalic",
+                    ),
+                  ),
+                  leading: const Icon(
+                    Icons.list,
+                    size: 15,
+                    color: Colors.black,
+                  ),
+                  trailing: IconButton(
+                    icon: const Icon(
+                      Icons.remove_circle_outline,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      favoriteJokes.remove(favoriteJokes.elementAt(index));
+                      setState(() {});
+                    },
+                  ),
                 ),
+
               ),
             );
+            // return ListTile(
+            //   leading: const Icon(Icons.list),
+            //   title: Text(
+            //     favoriteJokes[index],
+            //     style: const TextStyle(
+            //       fontSize: 15,
+            //       fontFamily: "KanitItalic",
+            //     ),
+            //   ),
+            // );
           }),
     );
   }
