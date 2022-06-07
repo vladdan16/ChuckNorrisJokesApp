@@ -152,7 +152,8 @@ class _HomePageState extends State<HomePage> {
                         key: UniqueKey(),
                         onDismissed: (direction) {
                           if (direction == DismissDirection.startToEnd) {
-                            if (_joke != "Check your internet connection" && !ifStart) {
+                            if (_joke != "Check your internet connection" &&
+                                !ifStart) {
                               favoriteJokes.add(_joke);
                             }
                           }
@@ -253,10 +254,12 @@ class _HomePageState extends State<HomePage> {
                                       iconSize: 60,
                                       onPressed: () {
                                         if (_joke !=
-                                            "Check your internet connection" && !ifStart) {
+                                                "Check your internet connection" &&
+                                            !ifStart) {
                                           favoriteJokes.add(_joke);
                                         }
-                                        if (_joke != "Check your internet connection") {
+                                        if (_joke !=
+                                            "Check your internet connection") {
                                           changeImage();
                                         }
                                         getJoke = true;
@@ -331,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                 }
               },
               icon: Icon(
-                pageIndex == 0 ? Icons.home_filled : Icons.home_outlined,
+                pageIndex == 0 ? Icons.home_rounded : Icons.home_outlined,
                 color: Colors.white,
                 size: 35,
               ),
