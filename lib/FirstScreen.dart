@@ -5,26 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 Set<String> favoriteJokes = {};
 
-void askStoragePermission() async {
-  final status = await Permission.storage.request();
-  if (status == PermissionStatus.granted) {
-    if (kDebugMode) {
-      print("Storage permission is granted");
-    }
-  } else if (status == PermissionStatus.denied) {
-    if (kDebugMode) {
-      print("Storage permission denied");
-    }
-  } else if (status == PermissionStatus.permanentlyDenied) {
-    if (kDebugMode) {
-      print("Storage permission is permanently denied");
-    }
-  }
-}
 
 Future<String?> get _localPath async {
   final directory = Platform.isAndroid
@@ -174,7 +157,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     readJSON();
     super.initState();
-    askStoragePermission();
+    //askStoragePermission();
     if (kDebugMode) {
       print("Init State");
     }
