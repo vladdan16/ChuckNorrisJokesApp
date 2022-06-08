@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:path_provider/path_provider.dart';
 
-Set<String> favoriteJokes = {};
+import 'SecondScreen.dart';
+import 'FilterScreen.dart';
 
 
 Future<String?> get _localPath async {
@@ -135,6 +136,12 @@ class _HomePageState extends State<HomePage> {
       try {
         final result = await InternetAddress.lookup('example.com');
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          if (chosenCategories.length == 0 || chosenCategories.length == categories.length) {
+            var url = Uri.parse('https://api.chucknorris.io/jokes/random');
+          } else {
+            int index = random.nextInt(chosenCategories.length);
+            var url = Uri.parse('https://api.chucknorris.io/jokes/random?category=${chosenCategories.elementAt(index)}');
+          }
           var url = Uri.parse('https://api.chucknorris.io/jokes/random');
           var response = await http.get(url);
           if (response.statusCode == 200) {
@@ -327,9 +334,9 @@ class _HomePageState extends State<HomePage> {
                                       width: 20,
                                     ),
                                     IconButton(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.thumb_down,
-                                        color: Colors.green[400],
+                                        color: Colors.redAccent,
                                       ),
                                       iconSize: 60,
                                       onPressed: () {
@@ -367,6 +374,21 @@ class _HomePageState extends State<HomePage> {
               ]),
             )
           : pages[pageIndex],
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(
+          Icons.tune,
+          size: 30,
+        ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const JokesFilter(),
+            ),
+          );
+        },
+
+      ),
       bottomNavigationBar: Container(
         height: 50,
         decoration: BoxDecoration(
@@ -440,24 +462,17 @@ class _FavoriteJokesState extends State<FavoriteJokes> {
     return SafeArea(
       child: ListView.builder(
           itemCount: favoriteJokes.length,
-          //physics: const BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Card(
                 color: Colors.yellow[100],
-                elevation: 10,
+                elevation: 7,
                 key: UniqueKey(),
                 //shadowColor: Colors.lightBlueAccent,
                 margin: const EdgeInsets.symmetric(vertical: 6),
                 child: ListTile(
-                  // title: Text(
-                  //   "Joke ${index + 1}",
-                  //   style: const TextStyle(
-                  //     fontSize: 20,
-                  //     fontFamily: "KanitItalic"
-                  //   ),
-                  // ),
                   subtitle: Text(
                     favoriteJokes.elementAt(index),
                     style: const TextStyle(
@@ -485,17 +500,8 @@ class _FavoriteJokesState extends State<FavoriteJokes> {
                 ),
               ),
             );
-            // return ListTile(
-            //   leading: const Icon(Icons.list),
-            //   title: Text(
-            //     favoriteJokes[index],
-            //     style: const TextStyle(
-            //       fontSize: 15,
-            //       fontFamily: "KanitItalic",
-            //     ),
-            //   ),
-            // );
           }),
     );
   }
 }
+
