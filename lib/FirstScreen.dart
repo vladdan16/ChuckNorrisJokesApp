@@ -136,21 +136,29 @@ class _HomePageState extends State<HomePage> {
       try {
         final result = await InternetAddress.lookup('example.com');
         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-          if (chosenCategories.length == 0 || chosenCategories.length == categories.length) {
+          if (chosenCategories.isEmpty || chosenCategories.length == categories.length) {
             var url = Uri.parse('https://api.chucknorris.io/jokes/random');
+            var response = await http.get(url);
+            if (response.statusCode == 200) {
+              var jsonResponse =
+              convert.jsonDecode(response.body) as Map<String, dynamic>;
+              if (kDebugMode) {
+                print(jsonResponse['value']);
+              }
+              _joke = jsonResponse['value'];
+            }
           } else {
             int index = random.nextInt(chosenCategories.length);
             var url = Uri.parse('https://api.chucknorris.io/jokes/random?category=${chosenCategories.elementAt(index)}');
-          }
-          var url = Uri.parse('https://api.chucknorris.io/jokes/random');
-          var response = await http.get(url);
-          if (response.statusCode == 200) {
-            var jsonResponse =
-                convert.jsonDecode(response.body) as Map<String, dynamic>;
-            if (kDebugMode) {
-              print(jsonResponse['value']);
+            var response = await http.get(url);
+            if (response.statusCode == 200) {
+              var jsonResponse =
+              convert.jsonDecode(response.body) as Map<String, dynamic>;
+              if (kDebugMode) {
+                print(jsonResponse['value']);
+              }
+              _joke = jsonResponse['value'];
             }
-            _joke = jsonResponse['value'];
           }
         }
       } on SocketException catch (_) {
@@ -379,6 +387,7 @@ class _HomePageState extends State<HomePage> {
           Icons.tune,
           size: 30,
         ),
+        backgroundColor: Colors.purple[400],
         onPressed: () {
           Navigator.push(
             context,
