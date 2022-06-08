@@ -40,6 +40,7 @@ class _JokesFilterState extends State<JokesFilter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purple[400],
         title: const Text(
           'Choose categories',
           style: TextStyle(

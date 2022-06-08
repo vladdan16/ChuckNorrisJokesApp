@@ -383,10 +383,6 @@ class _HomePageState extends State<HomePage> {
             )
           : pages[pageIndex],
       floatingActionButton: FloatingActionButton(
-        child: const Icon(
-          Icons.tune,
-          size: 30,
-        ),
         backgroundColor: Colors.purple[400],
         onPressed: () {
           Navigator.push(
@@ -396,6 +392,10 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         },
+        child: const Icon(
+          Icons.tune,
+          size: 30,
+        ),
 
       ),
       bottomNavigationBar: Container(
