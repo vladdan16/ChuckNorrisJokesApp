@@ -2,10 +2,70 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Set<String> favoriteJokes = {};
+
+void askStoragePermission() async {
+  final status = await Permission.storage.request();
+  if (status == PermissionStatus.granted) {
+    if (kDebugMode) {
+      print("Storage permission is granted");
+    }
+  } else if (status == PermissionStatus.denied) {
+    if (kDebugMode) {
+      print("Storage permission denied");
+    }
+  } else if (status == PermissionStatus.permanentlyDenied) {
+    if (kDebugMode) {
+      print("Storage permission is permanently denied");
+    }
+  }
+}
+
+Future<String?> get _localPath async {
+  final directory = Platform.isAndroid
+      ? await getExternalStorageDirectory()
+      : await getApplicationSupportDirectory();
+  return directory?.path;
+}
+
+Future<File> get _localFile async {
+  final path = await _localPath;
+  return File('$path/favoriteJokes.json');
+}
+
+Future<File> writeJSON() async {
+  final file = await _localFile;
+
+  List<Map> jsonList = [];
+
+  for (int i = 0; i < favoriteJokes.length; i++) {
+    jsonList.add({"joke": favoriteJokes.elementAt(i)});
+  }
+  var jsonText = convert.jsonEncode(jsonList);
+
+  // Write the file
+  return file.writeAsString(jsonText);
+}
+
+Future<void> readJSON() async {
+  try {
+    final file = await _localFile;
+    var jsonString = file.readAsStringSync();
+    var jsonResponse = convert.jsonDecode(jsonString) as List;
+    for (int i = 0; i < jsonResponse.length; i++) {
+      var jokeMap = jsonResponse[i] as Map;
+      favoriteJokes.add(jokeMap['joke']);
+    }
+  } catch (e) {
+    throw Exception("Error when reading file: $e");
+  }
+}
 
 class MyClass extends StatelessWidget {
   const MyClass({Key? key}) : super(key: key);
@@ -39,7 +99,7 @@ class _HomePageState extends State<HomePage> {
   String _joke =
       "Swipe this text or press the button to see joke\nNote: If you like joke, swipe to right, else swipe to left";
 
-  String _startMessage =
+  final String _startMessage =
       "Swipe this text or press the button to see joke\nNote: If you like joke, swipe to right, else swipe to left";
 
   List<String> titles = [
@@ -53,7 +113,7 @@ class _HomePageState extends State<HomePage> {
 
   final pages = [
     null,
-    FavoriteJokes(
+    const FavoriteJokes(
       title: 'title',
     ),
   ];
@@ -82,6 +142,11 @@ class _HomePageState extends State<HomePage> {
   //Flag to identify if the application is on start state
   bool ifStart = true;
 
+  void likedJoke() {
+    favoriteJokes.add(_joke);
+    writeJSON();
+  }
+
   //Function to get new joke from api
   Future<void> getNewJoke() async {
     if (getJoke) {
@@ -108,7 +173,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    readJSON();
     super.initState();
+    askStoragePermission();
     if (kDebugMode) {
       print("Init State");
     }
@@ -154,7 +221,8 @@ class _HomePageState extends State<HomePage> {
                           if (direction == DismissDirection.startToEnd) {
                             if (_joke != "Check your internet connection" &&
                                 !ifStart) {
-                              favoriteJokes.add(_joke);
+                              //favoriteJokes.add(_joke);
+                              likedJoke();
                             }
                           }
                           if (_joke != "Check your internet connection") {
@@ -256,7 +324,8 @@ class _HomePageState extends State<HomePage> {
                                         if (_joke !=
                                                 "Check your internet connection" &&
                                             !ifStart) {
-                                          favoriteJokes.add(_joke);
+                                          //favoriteJokes.add(_joke);
+                                          likedJoke();
                                         }
                                         if (_joke !=
                                             "Check your internet connection") {
@@ -427,6 +496,7 @@ class _FavoriteJokesState extends State<FavoriteJokes> {
                     ),
                     onPressed: () {
                       favoriteJokes.remove(favoriteJokes.elementAt(index));
+                      writeJSON();
                       setState(() {});
                     },
                   ),
