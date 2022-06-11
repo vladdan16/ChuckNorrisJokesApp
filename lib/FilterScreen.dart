@@ -23,6 +23,9 @@ List<String> categories = [
   "travel"
 ];
 
+
+
+
 class JokesFilter extends StatefulWidget {
   const JokesFilter({Key? key}) : super(key: key);
 
@@ -53,69 +56,72 @@ class _JokesFilterState extends State<JokesFilter> {
         child: ListView.builder(
           itemCount: categories.length,
           itemBuilder: (BuildContext context, int index) {
-            return Card(
-              key: UniqueKey(),
-              margin: const EdgeInsets.symmetric(vertical: 1),
-              child: Row(
-                children: [
-                  const SizedBox(
-                    width: 15,
+            return GestureDetector(
+              onTap: () {
+                if (chooseCategories[index]) {
+                  chosenCategories.remove(chooseCategories.elementAt(index));
+                  chooseCategories[index] = false;
+                } else {
+                  chooseCategories[index] = true;
+                  chosenCategories.add(categories[index]);
+                }
+                setState(() {});
+              },
+              child: SizedBox(
+                height: 40,
+                child: Card(
+                  key: UniqueKey(),
+                  margin: const EdgeInsets.symmetric(vertical: 1),
+                  child: Row(
+                    children: [
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Icon(
+                        chooseCategories[index]
+                            ? Icons.check_box_rounded
+                            : Icons.check_box_outline_blank_rounded,
+                        color: Colors.purple[400],
+                        size: 30,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        categories[index],
+                        style: const TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'KanitItalic',
+                        ),
+                      ),
+                    ],
                   ),
-                  IconButton(
-                    icon: Icon(
-                      chooseCategories[index]
-                          ? Icons.check_box_rounded
-                          : Icons.check_box_outline_blank_rounded,
-                      color: Colors.purple[400],
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      if (chooseCategories[index]) {
-                        chosenCategories.remove(chooseCategories.elementAt(index));
-                        chooseCategories[index] = false;
-                      } else {
-                        chooseCategories[index] = true;
-                        chosenCategories.add(categories[index]);
-                      }
-                      setState(() {});
-                    },
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    categories[index],
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'KanitItalic',
-                    ),
-                  ),
-                ],
+                  // ListTile(
+                  //   title: Text(
+                  //     categories[index],
+                  //     style: const TextStyle(
+                  //       fontFamily: 'KanitItalic',
+                  //       fontSize: 20,
+                  //     ),
+                  //   ),
+                  //   leading: IconButton(
+                  //     icon: Icon(chooseCategories[index]
+                  //         ? Icons.check_box_outlined
+                  //         : Icons.check_box_outline_blank_rounded),
+                  //     color: Colors.purple[400],
+                  //     onPressed: () {
+                  //       chooseCategories[index] = !chooseCategories[index];
+                  //       if (chooseCategories[index]) {
+                  //         chosenCategories.add(categories[index]);
+                  //       } else {
+                  //         chooseCategories.remove(categories[index]);
+                  //       }
+                  //       setState(() {});
+                  //     },
+                  //   ),
+                  // ),
+                ),
               ),
-              // ListTile(
-              //   title: Text(
-              //     categories[index],
-              //     style: const TextStyle(
-              //       fontFamily: 'KanitItalic',
-              //       fontSize: 20,
-              //     ),
-              //   ),
-              //   leading: IconButton(
-              //     icon: Icon(chooseCategories[index]
-              //         ? Icons.check_box_outlined
-              //         : Icons.check_box_outline_blank_rounded),
-              //     color: Colors.purple[400],
-              //     onPressed: () {
-              //       chooseCategories[index] = !chooseCategories[index];
-              //       if (chooseCategories[index]) {
-              //         chosenCategories.add(categories[index]);
-              //       } else {
-              //         chooseCategories.remove(categories[index]);
-              //       }
-              //       setState(() {});
-              //     },
-              //   ),
-              // ),
             );
           },
           //separatorBuilder: (BuildContext context, int index) =>
