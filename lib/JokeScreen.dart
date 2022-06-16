@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
 import 'FilterScreen.dart';
 import 'FirstScreen.dart';
-import 'SecondScreen.dart';
+import 'FavoriteJokesScreen.dart';
+import 'LanguageText.dart';
 
 String _joke =
     "Swipe this text or press the button to see joke\nNote: If you like joke, swipe to right, else swipe to left";
@@ -156,6 +157,8 @@ class _JokeScreenState extends State<JokeScreen> {
                   ),
                 ),
                 child: Container(
+                  //alignment: Alignment.center,
+                  clipBehavior: Clip.hardEdge,
                   margin: const EdgeInsets.only(left: 20, right: 20),
                   padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
                   decoration: BoxDecoration(
@@ -185,13 +188,9 @@ class _JokeScreenState extends State<JokeScreen> {
                             ),
                           );
                         } else {
-                          return Text(
-                            ifStart ? _startMessage : _joke,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 25,
-                              fontFamily: "KanitItalic",
-                            ),
+                          return LanguageText(
+                            text: ifStart ? _startMessage : _joke,
+                            size: language == 'English' ? 25 : 22,
                           );
                         }
                       }

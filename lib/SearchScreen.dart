@@ -1,11 +1,13 @@
 import 'dart:io';
+import 'package:chuck_norris_joke_app/FirstScreen.dart';
+import 'package:chuck_norris_joke_app/LanguageText.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 import 'JokeScreen.dart';
-import 'SecondScreen.dart';
+import 'FavoriteJokesScreen.dart';
 
 List<String> searchTerms = [];
 
@@ -50,9 +52,9 @@ class _SearchScreenState extends State<SearchScreen> {
     return SafeArea(
       child: Column(children: [
         TextField(
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Enter some text to search joke',
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            hintText: language == 'English' ? 'Enter some text to search joke' : 'Введите текст для поиска',
           ),
           onChanged: (text) {
             if (text != "") {
@@ -79,7 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 if (kDebugMode) {
                   print(snapshot.error);
                 }
-                return const Text("Check your internet connection");
+                return Text(language == 'English' ? 'Check your internet connection' : 'Проверьте ваше нитернет соединение');
               } else {
                 return Expanded(
                   child: ListView.builder(
@@ -95,13 +97,10 @@ class _SearchScreenState extends State<SearchScreen> {
                           key: UniqueKey(),
                           margin: const EdgeInsets.symmetric(vertical: 5),
                           child: ListTile(
-                            subtitle: Text(
-                              searchTerms[index],
-                              style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontFamily: 'KanitItalic',
-                              ),
+                            subtitle: LanguageText(
+                              text: searchTerms[index],
+                              size: 15,
+                              color: Colors.black,
                             ),
                             leading: const Icon(
                               Icons.list,

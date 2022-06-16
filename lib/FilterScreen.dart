@@ -1,4 +1,7 @@
+import 'package:chuck_norris_joke_app/FirstScreen.dart';
+import 'package:chuck_norris_joke_app/LanguageText.dart';
 import 'package:flutter/material.dart';
+import 'FirstScreen.dart';
 
 Set<String> chosenCategories = {};
 
@@ -20,11 +23,27 @@ List<String> categories = [
   "religion",
   "science",
   "sport",
-  "travel"
+  "travel",
 ];
 
-
-
+List<String> russianCategories = [
+  "животные",
+  "карьера",
+  "знаменитости",
+  "разработка",
+  "откровенное",
+  "мода",
+  "еда",
+  "история",
+  "деньги",
+  "фильмы",
+  "музыка",
+  "политика",
+  "религия",
+  "наука",
+  "спорт",
+  "путешествия",
+];
 
 class JokesFilter extends StatefulWidget {
   const JokesFilter({Key? key}) : super(key: key);
@@ -34,21 +53,16 @@ class JokesFilter extends StatefulWidget {
 }
 
 class _JokesFilterState extends State<JokesFilter> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple[400],
-        title: const Text(
-          'Choose categories',
+        title: Text(
+          language == 'English' ? 'Choose categories' : 'Выбор категорий',
           style: TextStyle(
-            fontFamily: "Kanit",
-            fontSize: 30,
+            fontSize: language == 'English' ? 30 : 25,
+            fontFamily: language == 'English' ? 'Kanit': 'Comfortaa',
           ),
         ),
       ),
@@ -88,38 +102,16 @@ class _JokesFilterState extends State<JokesFilter> {
                         width: 10,
                       ),
                       Text(
-                        categories[index],
-                        style: const TextStyle(
+                        language == 'English'
+                            ? categories[index]
+                            : russianCategories[index],
+                        style: TextStyle(
                           fontSize: 25,
-                          fontFamily: 'KanitItalic',
+                          fontFamily: language == 'English' ? 'KanitItalic' : 'Comfortaa',
                         ),
                       ),
                     ],
                   ),
-                  // ListTile(
-                  //   title: Text(
-                  //     categories[index],
-                  //     style: const TextStyle(
-                  //       fontFamily: 'KanitItalic',
-                  //       fontSize: 20,
-                  //     ),
-                  //   ),
-                  //   leading: IconButton(
-                  //     icon: Icon(chooseCategories[index]
-                  //         ? Icons.check_box_outlined
-                  //         : Icons.check_box_outline_blank_rounded),
-                  //     color: Colors.purple[400],
-                  //     onPressed: () {
-                  //       chooseCategories[index] = !chooseCategories[index];
-                  //       if (chooseCategories[index]) {
-                  //         chosenCategories.add(categories[index]);
-                  //       } else {
-                  //         chooseCategories.remove(categories[index]);
-                  //       }
-                  //       setState(() {});
-                  //     },
-                  //   ),
-                  // ),
                 ),
               ),
             );

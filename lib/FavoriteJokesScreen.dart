@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'FirstScreen.dart';
+import 'LanguageText.dart';
 
 Set<String> favoriteJokes = {};
 
@@ -35,13 +36,10 @@ class _FavoriteJokesState extends State<FavoriteJokes> {
                 //shadowColor: Colors.lightBlueAccent,
                 margin: const EdgeInsets.symmetric(vertical: 6),
                 child: ListTile(
-                  subtitle: Text(
-                    favoriteJokes.elementAt(index),
-                    style: const TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                      fontFamily: "KanitItalic",
-                    ),
+                  subtitle: LanguageText(
+                    text: favoriteJokes.elementAt(index),
+                    size: 15,
+                    color: Colors.black,
                   ),
                   leading: const Icon(
                     Icons.list,

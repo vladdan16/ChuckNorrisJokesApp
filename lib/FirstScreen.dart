@@ -1,15 +1,17 @@
-
 import 'dart:io';
 import 'package:chuck_norris_joke_app/JokeScreen.dart';
+import 'package:chuck_norris_joke_app/LanguageText.dart';
 import 'package:chuck_norris_joke_app/SearchScreen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
 import 'package:path_provider/path_provider.dart';
 
-import 'SecondScreen.dart';
+import 'FavoriteJokesScreen.dart';
 import 'FilterScreen.dart';
+import 'SettingsScreen.dart';
 
+String language = 'English';
 
 Future<String?> get _localPath async {
   final directory = Platform.isAndroid
@@ -87,12 +89,21 @@ class _HomePageState extends State<HomePage> {
       title: 'title',
     ),
     const SearchScreen(),
+    const SettingsScreen(),
   ];
 
   List<String> titles = [
     'Tinder with Chuck',
-    'Your favorite jokes',
+    'Favorite jokes',
     'Search for jokes',
+    'Settings',
+  ];
+
+  List<String> russianTitles = [
+    "Тиндер с Чаком",
+    "Любимые шутки",
+    "Поиск шуток",
+    "Настройки",
   ];
 
   @override
@@ -114,30 +125,34 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.purple[400],
         title: Text(
-          titles[pageIndex],
-          style: const TextStyle(
-            fontSize: 30,
-          ),
-        ),
+            language == 'English'
+                ? titles[pageIndex]
+                : russianTitles[pageIndex],
+            style: TextStyle(
+              fontSize: 30,
+              fontFamily: language == 'Russian' ? 'Comfortaa' : 'Kanit',
+              color: Colors.white,
+            )),
         centerTitle: true,
       ),
       body: pages[pageIndex],
-      floatingActionButton:
-      pageIndex == 0 ? FloatingActionButton(
-        backgroundColor: Colors.purple[400],
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const JokesFilter(),
-            ),
-          );
-        },
-        child: const Icon(
-          Icons.tune,
-          size: 30,
-        ),
-      ) : null,
+      floatingActionButton: pageIndex == 0
+          ? FloatingActionButton(
+              backgroundColor: Colors.purple[400],
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const JokesFilter(),
+                  ),
+                );
+              },
+              child: const Icon(
+                Icons.tune,
+                size: 30,
+              ),
+            )
+          : null,
       bottomNavigationBar: Container(
         height: 50,
         decoration: BoxDecoration(
@@ -147,7 +162,6 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              enableFeedback: false,
               onPressed: () {
                 if (pageIndex != 0) {
                   setState(() {
@@ -162,7 +176,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             IconButton(
-              enableFeedback: false,
               onPressed: () {
                 if (pageIndex != 1) {
                   setState(() {
@@ -177,17 +190,32 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             IconButton(
-              enableFeedback: false,
               onPressed: () {
-                setState(() {
-                  pageIndex = 2;
-                });
+                if (pageIndex != 2) {
+                  setState(() {
+                    pageIndex = 2;
+                  });
+                }
               },
               icon: const Icon(
                 Icons.search_rounded,
                 color: Colors.white,
                 size: 35,
               ),
+            ),
+            IconButton(
+              icon: Icon(
+                pageIndex == 3 ? Icons.settings : Icons.settings_outlined,
+                color: Colors.white,
+                size: 35,
+              ),
+              onPressed: () {
+                if (pageIndex != 3) {
+                  setState(() {
+                    pageIndex = 3;
+                  });
+                }
+              },
             ),
           ],
         ),
