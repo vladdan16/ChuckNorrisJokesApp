@@ -54,7 +54,9 @@ class _SearchScreenState extends State<SearchScreen> {
         TextField(
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            hintText: language == 'English' ? 'Enter some text to search joke' : 'Введите текст для поиска',
+            hintText: language == 'English'
+                ? 'Enter some text to search joke'
+                : 'Введите текст для поиска',
           ),
           onChanged: (text) {
             if (text != "") {
@@ -81,7 +83,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 if (kDebugMode) {
                   print(snapshot.error);
                 }
-                return Text(language == 'English' ? 'Check your internet connection' : 'Проверьте ваше нитернет соединение');
+                return Text(language == 'English'
+                    ? 'Check your internet connection'
+                    : 'Проверьте ваше нитернет соединение');
               } else {
                 return Expanded(
                   child: ListView.builder(
@@ -116,7 +120,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                 color: Colors.black,
                               ),
                               onPressed: () {
-                                if (favoriteJokes.contains(searchTerms[index])) {
+                                if (favoriteJokes
+                                    .contains(searchTerms[index])) {
                                   removeJoke(searchTerms[index]);
                                 } else {
                                   if (searchTerms[index] !=

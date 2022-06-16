@@ -1,10 +1,8 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
-import 'dart:io';
 
 import 'FirstScreen.dart';
 
@@ -20,7 +18,12 @@ Future<void> readToken() async {
 }
 
 class LanguageText extends StatefulWidget {
-  LanguageText({Key? key, required this.text, required this.size, this.fontFamily, this.color})
+  LanguageText(
+      {Key? key,
+      required this.text,
+      required this.size,
+      this.fontFamily,
+      this.color})
       : super(key: key);
 
   String text;
@@ -96,7 +99,8 @@ class _LanguageTextState extends State<LanguageText> {
             style: TextStyle(
               fontSize: widget.size,
               color: Colors.black,
-              fontFamily: language == 'English' ? widget.fontFamily : 'Comfortaa',
+              fontFamily:
+                  language == 'English' ? widget.fontFamily : 'Comfortaa',
             ),
           );
         } else {
@@ -105,9 +109,9 @@ class _LanguageTextState extends State<LanguageText> {
               'Error',
               textAlign: TextAlign.center,
               style: TextStyle(
-              fontSize: widget.size,
-              fontFamily: widget.fontFamily,
-            ),
+                fontSize: widget.size,
+                fontFamily: widget.fontFamily,
+              ),
             );
           } else {
             return Text(
@@ -116,7 +120,8 @@ class _LanguageTextState extends State<LanguageText> {
               style: TextStyle(
                 color: widget.color,
                 fontSize: widget.size,
-                fontFamily: language == 'English' ? widget.fontFamily : 'Comfortaa',
+                fontFamily:
+                    language == 'English' ? widget.fontFamily : 'Comfortaa',
               ),
             );
           }

@@ -62,7 +62,7 @@ class _JokesFilterState extends State<JokesFilter> {
           language == 'English' ? 'Choose categories' : 'Выбор категорий',
           style: TextStyle(
             fontSize: language == 'English' ? 30 : 25,
-            fontFamily: language == 'English' ? 'Kanit': 'Comfortaa',
+            fontFamily: language == 'English' ? 'Kanit' : 'Comfortaa',
           ),
         ),
       ),
@@ -107,7 +107,9 @@ class _JokesFilterState extends State<JokesFilter> {
                             : russianCategories[index],
                         style: TextStyle(
                           fontSize: 25,
-                          fontFamily: language == 'English' ? 'KanitItalic' : 'Comfortaa',
+                          fontFamily: language == 'English'
+                              ? 'KanitItalic'
+                              : 'Comfortaa',
                         ),
                       ),
                     ],

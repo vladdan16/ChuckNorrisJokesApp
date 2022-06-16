@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'dart:math';
 import 'package:http/http.dart' as http;
@@ -55,12 +54,13 @@ Future<void> getNewJoke() async {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        if (chosenCategories.isEmpty || chosenCategories.length == categories.length) {
+        if (chosenCategories.isEmpty ||
+            chosenCategories.length == categories.length) {
           var url = Uri.parse('https://api.chucknorris.io/jokes/random');
           var response = await http.get(url);
           if (response.statusCode == 200) {
             var jsonResponse =
-            convert.jsonDecode(response.body) as Map<String, dynamic>;
+                convert.jsonDecode(response.body) as Map<String, dynamic>;
             if (kDebugMode) {
               print(jsonResponse['value']);
             }
@@ -68,11 +68,12 @@ Future<void> getNewJoke() async {
           }
         } else {
           int index = random.nextInt(chosenCategories.length);
-          var url = Uri.parse('https://api.chucknorris.io/jokes/random?category=${chosenCategories.elementAt(index)}');
+          var url = Uri.parse(
+              'https://api.chucknorris.io/jokes/random?category=${chosenCategories.elementAt(index)}');
           var response = await http.get(url);
           if (response.statusCode == 200) {
             var jsonResponse =
-            convert.jsonDecode(response.body) as Map<String, dynamic>;
+                convert.jsonDecode(response.body) as Map<String, dynamic>;
             if (kDebugMode) {
               print(jsonResponse['value']);
             }
@@ -97,7 +98,6 @@ class JokeScreen extends StatefulWidget {
 }
 
 class _JokeScreenState extends State<JokeScreen> {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -111,8 +111,7 @@ class _JokeScreenState extends State<JokeScreen> {
           child: ListView(
             children: <Widget>[
               //Widget for showing an image with Chuck Norris
-              SizedBox(
-                  height: 290, child: Image.asset(images[imageIndex])),
+              SizedBox(height: 290, child: Image.asset(images[imageIndex])),
               const SizedBox(
                 height: 20,
               ),
@@ -121,8 +120,7 @@ class _JokeScreenState extends State<JokeScreen> {
                 key: UniqueKey(),
                 onDismissed: (direction) {
                   if (direction == DismissDirection.startToEnd) {
-                    if (_joke != "Check your internet connection" &&
-                        !ifStart) {
+                    if (_joke != "Check your internet connection" && !ifStart) {
                       //favoriteJokes.add(_joke);
                       likedJoke(_joke);
                     }
@@ -171,8 +169,7 @@ class _JokeScreenState extends State<JokeScreen> {
                       if (kDebugMode) {
                         print(snapshot.connectionState);
                       }
-                      if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
@@ -212,72 +209,68 @@ class _JokeScreenState extends State<JokeScreen> {
                 padding: const EdgeInsets.all(20),
                 child: !ifStart
                     ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.thumb_up,
+                                color: Colors.green[400],
+                              ),
+                              iconSize: 60,
+                              onPressed: () {
+                                if (_joke != "Check your internet connection" &&
+                                    !ifStart) {
+                                  //favoriteJokes.add(_joke);
+                                  likedJoke(_joke);
+                                }
+                                if (_joke != "Check your internet connection") {
+                                  changeImage();
+                                }
+                                getJoke = true;
+                                setState(() {});
+                                ifStart = false;
+                                if (kDebugMode) {
+                                  print('Thumb up button has been pressed');
+                                  print('You liked: $_joke');
+                                }
+                              },
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.thumb_down,
+                                color: Colors.redAccent,
+                              ),
+                              iconSize: 60,
+                              onPressed: () {
+                                getJoke = true;
+                                changeImage();
+                                setState(() {});
+                                ifStart = false;
+                                if (kDebugMode) {
+                                  print('Thumb down button has been pressed');
+                                }
+                              },
+                            )
+                          ])
+                    : IconButton(
                         icon: Icon(
-                          Icons.thumb_up,
+                          Icons.play_arrow,
                           color: Colors.green[400],
                         ),
-                        iconSize: 60,
-                        onPressed: () {
-                          if (_joke !=
-                              "Check your internet connection" &&
-                              !ifStart) {
-                            //favoriteJokes.add(_joke);
-                            likedJoke(_joke);
-                          }
-                          if (_joke !=
-                              "Check your internet connection") {
-                            changeImage();
-                          }
-                          getJoke = true;
-                          setState(() {});
-                          ifStart = false;
-                          if (kDebugMode) {
-                            print(
-                                'Thumb up button has been pressed');
-                            print('You liked: $_joke');
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.thumb_down,
-                          color: Colors.redAccent,
-                        ),
-                        iconSize: 60,
+                        iconSize: 80,
                         onPressed: () {
                           getJoke = true;
                           changeImage();
                           setState(() {});
                           ifStart = false;
                           if (kDebugMode) {
-                            print(
-                                'Thumb down button has been pressed');
+                            print('Play button has been pressed');
                           }
                         },
-                      )
-                    ])
-                    : IconButton(
-                  icon: Icon(
-                    Icons.play_arrow,
-                    color: Colors.green[400],
-                  ),
-                  iconSize: 80,
-                  onPressed: () {
-                    getJoke = true;
-                    changeImage();
-                    setState(() {});
-                    ifStart = false;
-                    if (kDebugMode) {
-                      print('Play button has been pressed');
-                    }
-                  },
-                ),
+                      ),
               ),
             ],
           ),

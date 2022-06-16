@@ -27,7 +27,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
-              language == 'English' ? 'Choose the language of app' : 'Выберете язык приложения',
+              language == 'English'
+                  ? 'Choose the language of app'
+                  : 'Выберете язык приложения',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25,
@@ -47,7 +49,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25,
-                  fontFamily: language == 'Russian' ? 'Comfortaa' : 'KanitItalic',
+                  fontFamily:
+                      language == 'Russian' ? 'Comfortaa' : 'KanitItalic',
                   color: Colors.black,
                 ),
               ),
@@ -73,7 +76,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25,
-                  fontFamily: language == 'Russian' ? 'Comfortaa' : 'KanitItalic',
+                  fontFamily:
+                      language == 'Russian' ? 'Comfortaa' : 'KanitItalic',
                   color: Colors.black,
                 ),
               ),
