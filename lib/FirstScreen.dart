@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:chuck_norris_joke_app/JokeScreen.dart';
-import 'package:chuck_norris_joke_app/LanguageText.dart';
 import 'package:chuck_norris_joke_app/SearchScreen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
