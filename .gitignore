@@ -46,4 +46,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-/assets/secret_token.json
+secret_token.json
