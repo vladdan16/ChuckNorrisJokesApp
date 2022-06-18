@@ -187,7 +187,7 @@ class _JokeScreenState extends State<JokeScreen> {
                         } else {
                           return LanguageText(
                             text: ifStart ? _startMessage : _joke,
-                            size: language == 'English' ? 25 : 22,
+                            size: language == 'en' ? 25 : 22,
                           );
                         }
                       }

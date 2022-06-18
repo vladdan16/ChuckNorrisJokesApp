@@ -58,10 +58,10 @@ class _JokesFilterState extends State<JokesFilter> {
       appBar: AppBar(
         backgroundColor: Colors.purple[400],
         title: Text(
-          language == 'English' ? 'Choose categories' : 'Выбор категорий',
+          language == 'en' ? 'Choose categories' : 'Выбор категорий',
           style: TextStyle(
-            fontSize: language == 'English' ? 30 : 25,
-            fontFamily: language == 'English' ? 'Kanit' : 'Comfortaa',
+            fontSize: language == 'en' ? 30 : 25,
+            fontFamily: language == 'en' ? 'Kanit' : 'Comfortaa',
           ),
         ),
       ),
@@ -101,12 +101,12 @@ class _JokesFilterState extends State<JokesFilter> {
                         width: 10,
                       ),
                       Text(
-                        language == 'English'
+                        language == 'en'
                             ? categories[index]
                             : russianCategories[index],
                         style: TextStyle(
                           fontSize: 25,
-                          fontFamily: language == 'English'
+                          fontFamily: language == 'en'
                               ? 'KanitItalic'
                               : 'Comfortaa',
                         ),

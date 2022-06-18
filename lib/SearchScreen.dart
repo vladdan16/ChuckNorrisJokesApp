@@ -16,6 +16,9 @@ Future<void> getJokesFromQuery(String query) async {
   try {
     final result = await InternetAddress.lookup('example.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      if (language == 'ru') {
+        query = await translateText(query, language, 'en');
+      }
       var url =
           Uri.parse('https://api.chucknorris.io/jokes/search?query=$query');
       var response = await http.get(url);
@@ -54,7 +57,7 @@ class _SearchScreenState extends State<SearchScreen> {
         TextField(
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            hintText: language == 'English'
+            hintText: language == 'en'
                 ? 'Enter some text to search joke'
                 : 'Введите текст для поиска',
           ),
@@ -83,7 +86,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 if (kDebugMode) {
                   print(snapshot.error);
                 }
-                return Text(language == 'English'
+                return Text(language == 'en'
                     ? 'Check your internet connection'
                     : 'Проверьте ваше нитернет соединение');
               } else {

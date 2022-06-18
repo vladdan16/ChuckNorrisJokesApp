@@ -19,6 +19,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             height: 30,
           ),
           Container(
+            height: 50,
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
@@ -26,58 +27,59 @@ class _SettingsScreenState extends State<SettingsScreen> {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(
-              language == 'English'
+              language == 'en'
                   ? 'Choose the language of app'
                   : 'Выберете язык приложения',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 25,
-                fontFamily: language == 'English' ? 'KanitItalic' : 'Comfortaa',
+                fontSize: language == 'en' ? 25 : 22,
+                fontFamily: language == 'en' ? 'KanitItalic' : 'Comfortaa',
                 color: Colors.black,
               ),
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 40,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                language == 'English' ? 'English' : 'Английский',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 25,
-                  fontFamily:
-                      language == 'Russian' ? 'Comfortaa' : 'KanitItalic',
-                  color: Colors.black,
+              SizedBox(
+                width: 150,
+                child: Text(
+                  language == 'en' ? 'English' : 'Английский',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: language == 'en' ? 25 : 22,
+                    fontFamily:
+                        language == 'ru' ? 'Comfortaa' : 'KanitItalic',
+                    color: Colors.black,
+                  ),
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
+
               CupertinoSwitch(
-                value: language == 'Russian',
+                value: language == 'ru',
                 onChanged: (value) {
-                  if (language == 'Russian') {
-                    language = 'English';
+                  if (language == 'ru') {
+                    language = 'rn';
                   } else {
-                    language = 'Russian';
+                    language = 'ru';
                   }
                   setState(() {});
                 },
               ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                language == 'English' ? 'Russian' : 'Русский',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 25,
-                  fontFamily:
-                      language == 'Russian' ? 'Comfortaa' : 'KanitItalic',
-                  color: Colors.black,
+              SizedBox(
+                width: 150,
+                child: Text(
+                  language == 'en' ? 'Russian' : 'Русский',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: language == 'en' ? 25 : 22,
+                    fontFamily:
+                        language == 'ru' ? 'Comfortaa' : 'KanitItalic',
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ],

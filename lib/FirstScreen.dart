@@ -10,7 +10,7 @@ import 'FavoriteJokesScreen.dart';
 import 'FilterScreen.dart';
 import 'SettingsScreen.dart';
 
-String language = 'English';
+String language = 'en';
 
 Future<String?> get _localPath async {
   final directory = Platform.isAndroid
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.purple[400],
         title: Text(
-            language == 'English'
+            language == 'en'
                 ? titles[pageIndex]
                 : russianTitles[pageIndex],
             style: TextStyle(
