@@ -62,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: language == 'ru',
                 onChanged: (value) {
                   if (language == 'ru') {
-                    language = 'rn';
+                    language = 'en';
                   } else {
                     language = 'ru';
                   }
