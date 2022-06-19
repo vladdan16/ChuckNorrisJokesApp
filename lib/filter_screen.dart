@@ -1,6 +1,6 @@
-import 'package:chuck_norris_joke_app/FirstScreen.dart';
+import 'package:chuck_norris_joke_app/first_screen.dart';
 import 'package:flutter/material.dart';
-import 'FirstScreen.dart';
+import 'first_screen.dart';
 
 Set<String> chosenCategories = {};
 

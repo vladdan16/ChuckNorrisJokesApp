@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'FirstScreen.dart';
+import 'first_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             height: 30,
           ),
           Container(
-            height: 50,
+            height: language == 'en' ? 60 : 70,
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
@@ -38,8 +38,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 40,
+          SizedBox(
+            height: language == 'en' ? 50 : 40,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -67,6 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     language = 'ru';
                   }
                   setState(() {});
+                  super.setState(() {});
                 },
               ),
               SizedBox(

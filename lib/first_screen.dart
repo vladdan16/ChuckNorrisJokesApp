@@ -1,14 +1,14 @@
 import 'dart:io';
-import 'package:chuck_norris_joke_app/JokeScreen.dart';
-import 'package:chuck_norris_joke_app/SearchScreen.dart';
+import 'package:chuck_norris_joke_app/joke_screen.dart';
+import 'package:chuck_norris_joke_app/search_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
 import 'package:path_provider/path_provider.dart';
 
-import 'FavoriteJokesScreen.dart';
-import 'FilterScreen.dart';
-import 'SettingsScreen.dart';
+import 'favorite_jokes_screen.dart';
+import 'filter_screen.dart';
+import 'settings_screen.dart';
 
 String language = 'en';
 
@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                 : russianTitles[pageIndex],
             style: TextStyle(
               fontSize: 30,
-              fontFamily: language == 'Russian' ? 'Comfortaa' : 'Kanit',
+              fontFamily: language == 'ru' ? 'Comfortaa' : 'Kanit',
               color: Colors.white,
             )),
         centerTitle: true,
@@ -169,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                 }
               },
               icon: Icon(
-                pageIndex == 0 ? Icons.home_rounded : Icons.home_outlined,
+                pageIndex == 0 ? Icons.home : Icons.home_outlined,
                 color: Colors.white,
                 size: 35,
               ),

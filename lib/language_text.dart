@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-import 'FirstScreen.dart';
+import 'first_screen.dart';
 
 late String token;
 late String folderId;
@@ -98,27 +98,28 @@ Future<String> translateText(
 }
 
 class LanguageText extends StatefulWidget {
-  LanguageText(
+  const LanguageText(
       {Key? key,
       required this.text,
       required this.size,
-      this.fontFamily,
-      this.color})
-      : super(key: key);
+      String? fontFamily,
+      Color? color})
+      : fontFamily = fontFamily ?? 'KanitItalic',
+        color = color ?? Colors.black,
+        super(key: key);
 
-  String text;
-
+  final String text;
   final double size;
-
-  String? fontFamily = 'KanitItalic';
-
-  Color? color = Colors.black;
+  final String fontFamily;
+  final Color color;
 
   @override
   State<LanguageText> createState() => _LanguageTextState();
 }
 
 class _LanguageTextState extends State<LanguageText> {
+  late String text;
+
   Future<void> translateText() async {
     if (language == 'ru') {
       if (!ifReadToken) {
@@ -133,7 +134,7 @@ class _LanguageTextState extends State<LanguageText> {
           url,
           body: convert.jsonEncode({
             "targetLanguageCode": "ru",
-            "texts": [widget.text],
+            "texts": [text],
             "folderId": folderId,
           }),
           headers: {
@@ -150,24 +151,25 @@ class _LanguageTextState extends State<LanguageText> {
           }
           var list = jsonResponse['translations'] as List;
           var map = list[0] as Map<String, dynamic>;
-          widget.text = map['text'];
+          text = map['text'];
         } else if (response.statusCode == 401) {
-          widget.text = 'Unauthorized';
+          text = 'Unauthorized';
         } else {
           if (kDebugMode) {
             print("Couldn't translate");
             print(response.statusCode);
           }
-          widget.text = "Unknown error, please try English version of app";
+          text = "Unknown error, please try English version of app";
         }
       } catch (e) {
-        widget.text = "Check your internet connection";
+        text = "Check your internet connection";
       }
     }
   }
 
   @override
   void initState() {
+    text = widget.text;
     translateText();
     super.initState();
   }
@@ -193,7 +195,7 @@ class _LanguageTextState extends State<LanguageText> {
         } else {
           if (snapshot.hasError) {
             return Text(
-              widget.text,
+              text,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: widget.size,
@@ -202,7 +204,7 @@ class _LanguageTextState extends State<LanguageText> {
             );
           } else {
             return Text(
-              widget.text,
+              text,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: widget.color,

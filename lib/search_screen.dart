@@ -1,13 +1,13 @@
 import 'dart:io';
-import 'package:chuck_norris_joke_app/FirstScreen.dart';
-import 'package:chuck_norris_joke_app/LanguageText.dart';
+import 'package:chuck_norris_joke_app/first_screen.dart';
+import 'package:chuck_norris_joke_app/language_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
-import 'JokeScreen.dart';
-import 'FavoriteJokesScreen.dart';
+import 'joke_screen.dart';
+import 'favorite_jokes_screen.dart';
 
 List<String> searchTerms = [];
 

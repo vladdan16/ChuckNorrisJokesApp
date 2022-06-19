@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'FirstScreen.dart';
-import 'LanguageText.dart';
+import 'first_screen.dart';
+import 'language_text.dart';
 
 Set<String> favoriteJokes = {};
 

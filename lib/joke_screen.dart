@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
-import 'FilterScreen.dart';
-import 'FirstScreen.dart';
-import 'FavoriteJokesScreen.dart';
-import 'LanguageText.dart';
+import 'filter_screen.dart';
+import 'first_screen.dart';
+import 'favorite_jokes_screen.dart';
+import 'language_text.dart';
 
 String _joke =
     "Swipe this text or press the button to see joke\nNote: If you like joke, swipe to right, else swipe to left";
