@@ -9,29 +9,18 @@ viewing jokes about Chuck Norris.
 
 ## Examples
 
-On the start screen you see the image and text with small instruction.
-
-![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/start_screen.jpg "a title")
-
-On the following image you see example of screen with joke.
-
-![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/joke_screen.jpg "a title")
-
-This is a screen with filter of jokes.
-
-![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/filter_screen.jpg "a title")
-
-Here you can see your favorite jokes.
-
-![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/favorites_screen.jpg "a title")
-
-Here you can search for jokes with Chuck Norris.
-
-![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/search_screen.jpg "a title")
-
-And this is a page with language settings.
-
-![Alt text](https://github.com/vladdan16/ChuckNorrisJokesApp/blob/master/screens/settings_screen.jpg "a title")
+<p>On the start screen you see the image and text with small instruction.</p>
+<img src="./screens/start_screen.jpg" width="230" height="400">
+<p>On the following image you see example of screen with joke.</p>
+<img src="./screens/joke_screen.jpg" width="230" height="400">
+<p>This is a screen with filter of jokes.</p>
+<img src="./screens/filter_screen.jpg" width="230" height="400">
+<p>Here you can see your favorite jokes.</p>
+<img src="./screens/favorites_screen.jpg" width="230" height="400">
+<p>Here you can search for jokes with Chuck Norris.</p>
+<img src="./screens/search_screen.jpg" width="230" height="400">
+<p>And this is a page with language settings.</p>
+<img src="./screens/settings_screen.jpg" width="230" height="400">
 
 ## What's used?
 
