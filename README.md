@@ -7,6 +7,14 @@ It is Flutter project.
 In this repository you will find my Tinder with Chuck Norris sample-app. This android app allows
 viewing jokes about Chuck Norris.
 
+## Release and installation
+
+You can see all releases of application on [release page](https://github.com/vladdan16/ChuckNorrisJokesApp/releases)
+in GitHub and here you can download an attached APK.
+
+Here is the [last release](https://github.com/vladdan16/ChuckNorrisJokesApp/releases/tag/v1.5.3) an corresponding
+[apk](https://github.com/vladdan16/ChuckNorrisJokesApp/releases/download/v1.5.3/ChuckNorrisJokesApp-v1.5.3.apk).
+
 ## Examples
 
 <p>On the start screen you see the image and text with small instruction.</p>
