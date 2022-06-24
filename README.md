@@ -10,7 +10,7 @@ viewing jokes about Chuck Norris.
 ## Release and installation
 
 You can see all releases of application on [release page](https://github.com/vladdan16/ChuckNorrisJokesApp/releases)
-in GitHub and here you can download an attached APK.
+in GitHub and there you can download an attached APK.
 
 Here is the [last release](https://github.com/vladdan16/ChuckNorrisJokesApp/releases/tag/v1.5.3) an corresponding
 [apk](https://github.com/vladdan16/ChuckNorrisJokesApp/releases/download/v1.5.3/ChuckNorrisJokesApp-v1.5.3.apk).
