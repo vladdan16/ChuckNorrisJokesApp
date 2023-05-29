@@ -61,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: TextField(
               decoration: InputDecoration(
                 border: const UnderlineInputBorder(),
-                hintText: language == 'en'
+                hintText: language == Language.english
                     ? 'Enter some text to search joke'
                     : 'Введите текст для поиска',
               ),
@@ -91,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   if (kDebugMode) {
                     print(snapshot.error);
                   }
-                  return Text(language == 'en'
+                  return Text(language == Language.english
                       ? 'Check your internet connection'
                       : 'Проверьте ваше нитернет соединение');
                 } else {
@@ -111,6 +111,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               subtitle: LanguageText(
                                 text: searchTerms[index],
                                 size: 15,
+                                color: Theme.of(context).colorScheme.onSecondaryContainer,
                               ),
                               leading: const Icon(
                                 Icons.list,

@@ -91,7 +91,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     readJSON();
     super.initState();
-    //askStoragePermission();
     if (kDebugMode) {
       print("Init State");
     }

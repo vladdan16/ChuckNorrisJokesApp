@@ -37,6 +37,7 @@ class _FavoriteJokesState extends State<FavoriteJokes> {
                   subtitle: LanguageText(
                     text: favoriteJokes.elementAt(index),
                     size: 15,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
                   ),
                   leading: const Icon(
                     Icons.list,

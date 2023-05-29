@@ -187,6 +187,7 @@ class _JokeScreenState extends State<JokeScreen> {
                           return LanguageText(
                             text: ifStart ? _startMessage : _joke,
                             size: language == Language.english ? 25 : 22,
+                            color: Theme.of(context).colorScheme.onSecondaryContainer,
                           );
                         }
                       }
@@ -219,7 +220,6 @@ class _JokeScreenState extends State<JokeScreen> {
                               onPressed: () {
                                 if (_joke != "Check your internet connection" &&
                                     !ifStart) {
-                                  //favoriteJokes.add(_joke);
                                   likedJoke(_joke);
                                 }
                                 if (_joke != "Check your internet connection") {

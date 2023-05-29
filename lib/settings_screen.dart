@@ -24,7 +24,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               height: 30,
             ),
             Container(
-              height: language == Language.english ? 60 : 70,
+              height: language == Language.english ? 60 : 80,
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
@@ -37,7 +37,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   fontFamily: language == Language.english
                       ? 'KanitItalic'
                       : 'Comfortaa',
-                  color: Colors.black,
                 ),
               ),
             ),
@@ -62,7 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const SizedBox(height: 30),
             Container(
-              height: language == Language.english ? 60 : 70,
+              height: language == Language.english ? 60 : 80,
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
@@ -75,7 +74,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   fontFamily: language == Language.english
                       ? 'KanitItalic'
                       : 'Comfortaa',
-                  color: Colors.black,
                 ),
               ),
             ),

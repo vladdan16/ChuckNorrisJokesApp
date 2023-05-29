@@ -1,6 +1,6 @@
 import 'package:chuck_norris_joke_app/first_screen.dart';
+import 'package:chuck_norris_joke_app/settings_screen.dart';
 import 'package:flutter/material.dart';
-import 'first_screen.dart';
 
 Set<String> chosenCategories = {};
 
@@ -56,12 +56,11 @@ class _JokesFilterState extends State<JokesFilter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.purple[400],
         title: Text(
-          language == 'en' ? 'Choose categories' : 'Выбор категорий',
+          language == Language.english ? 'Choose categories' : 'Выбор категорий',
           style: TextStyle(
-            fontSize: language == 'en' ? 30 : 25,
-            fontFamily: language == 'en' ? 'Kanit' : 'Comfortaa',
+            fontSize: language == Language.english ? 30 : 25,
+            fontFamily: language == Language.english ? 'Kanit' : 'Comfortaa',
           ),
         ),
       ),
@@ -96,24 +95,17 @@ class _JokesFilterState extends State<JokesFilter> {
                         value: chooseCategories[index],
                         onChanged: null,
                       ),
-                      // Icon(
-                      //   chooseCategories[index]
-                      //       ? Icons.check_box_rounded
-                      //       : Icons.check_box_outline_blank_rounded,
-                      //   color: Colors.purple[400],
-                      //   size: 30,
-                      // ),
                       const SizedBox(
                         width: 10,
                       ),
                       Text(
-                        language == 'en'
+                        language == Language.english
                             ? categories[index]
                             : russianCategories[index],
                         style: TextStyle(
                           fontSize: 25,
                           fontFamily:
-                              language == 'en' ? 'KanitItalic' : 'Comfortaa',
+                              language == Language.english ? 'KanitItalic' : 'Comfortaa',
                         ),
                       ),
                     ],
