@@ -30,26 +30,21 @@ class _FavoriteJokesState extends State<FavoriteJokes> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Card(
-                color: Colors.yellow[100],
                 elevation: 7,
                 key: UniqueKey(),
-                //shadowColor: Colors.lightBlueAccent,
                 margin: const EdgeInsets.symmetric(vertical: 6),
                 child: ListTile(
                   subtitle: LanguageText(
                     text: favoriteJokes.elementAt(index),
                     size: 15,
-                    color: Colors.black,
                   ),
                   leading: const Icon(
                     Icons.list,
                     size: 15,
-                    color: Colors.black,
                   ),
                   trailing: IconButton(
                     icon: const Icon(
                       Icons.remove_circle_outline,
-                      color: Colors.black,
                     ),
                     onPressed: () {
                       removeJoke(favoriteJokes.elementAt(index));

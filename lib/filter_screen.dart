@@ -56,7 +56,7 @@ class _JokesFilterState extends State<JokesFilter> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple[400],
+        // backgroundColor: Colors.purple[400],
         title: Text(
           language == 'en' ? 'Choose categories' : 'Выбор категорий',
           style: TextStyle(
@@ -67,6 +67,7 @@ class _JokesFilterState extends State<JokesFilter> {
       ),
       body: SafeArea(
         child: ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           itemCount: categories.length,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
@@ -80,8 +81,9 @@ class _JokesFilterState extends State<JokesFilter> {
                 }
                 setState(() {});
               },
-              child: SizedBox(
+              child: Container(
                 height: 40,
+                margin: const EdgeInsets.only(bottom: 2),
                 child: Card(
                   key: UniqueKey(),
                   margin: const EdgeInsets.symmetric(vertical: 1),
@@ -90,13 +92,17 @@ class _JokesFilterState extends State<JokesFilter> {
                       const SizedBox(
                         width: 15,
                       ),
-                      Icon(
-                        chooseCategories[index]
-                            ? Icons.check_box_rounded
-                            : Icons.check_box_outline_blank_rounded,
-                        color: Colors.purple[400],
-                        size: 30,
+                      Checkbox(
+                        value: chooseCategories[index],
+                        onChanged: null,
                       ),
+                      // Icon(
+                      //   chooseCategories[index]
+                      //       ? Icons.check_box_rounded
+                      //       : Icons.check_box_outline_blank_rounded,
+                      //   color: Colors.purple[400],
+                      //   size: 30,
+                      // ),
                       const SizedBox(
                         width: 10,
                       ),
@@ -106,9 +112,8 @@ class _JokesFilterState extends State<JokesFilter> {
                             : russianCategories[index],
                         style: TextStyle(
                           fontSize: 25,
-                          fontFamily: language == 'en'
-                              ? 'KanitItalic'
-                              : 'Comfortaa',
+                          fontFamily:
+                              language == 'en' ? 'KanitItalic' : 'Comfortaa',
                         ),
                       ),
                     ],

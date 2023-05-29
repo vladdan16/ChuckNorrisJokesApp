@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chuck_norris_joke_app/settings_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,7 +48,7 @@ Future<void> getTokenFromGoogleDrive() async {
 }
 
 Future<String> translateText(
-    String text, String lang, String targetLang) async {
+    String text, Language lang, Language targetLang) async {
   if (lang != targetLang) {
     final result = await InternetAddress.lookup('example.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -62,7 +63,7 @@ Future<String> translateText(
       final response = await http.post(
         url,
         body: convert.jsonEncode({
-          "targetLanguageCode": targetLang,
+          "targetLanguageCode": targetLang == Language.russian ? 'ru' : 'en',
           "texts": [text],
           "folderId": folderId,
         }),
@@ -121,7 +122,7 @@ class _LanguageTextState extends State<LanguageText> {
   late String text;
 
   Future<void> translateText() async {
-    if (language == 'ru') {
+    if (language == Language.russian) {
       if (!ifReadToken) {
         await getTokenFromGoogleDrive();
         ifReadToken = true;
@@ -189,7 +190,9 @@ class _LanguageTextState extends State<LanguageText> {
             style: TextStyle(
               fontSize: widget.size,
               color: Colors.black,
-              fontFamily: language == 'en' ? widget.fontFamily : 'Comfortaa',
+              fontFamily: language == Language.english
+                  ? widget.fontFamily
+                  : 'Comfortaa',
             ),
           );
         } else {
@@ -209,7 +212,9 @@ class _LanguageTextState extends State<LanguageText> {
               style: TextStyle(
                 color: widget.color,
                 fontSize: widget.size,
-                fontFamily: language == 'en' ? widget.fontFamily : 'Comfortaa',
+                fontFamily: language == Language.english
+                    ? widget.fontFamily
+                    : 'Comfortaa',
               ),
             );
           }

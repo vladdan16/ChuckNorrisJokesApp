@@ -10,7 +10,7 @@ import 'favorite_jokes_screen.dart';
 import 'filter_screen.dart';
 import 'settings_screen.dart';
 
-String language = 'en';
+Language language = Language.english;
 
 Future<String?> get _localPath async {
   final directory = Platform.isAndroid
@@ -49,25 +49,6 @@ Future<void> readJSON() async {
     }
   } catch (e) {
     throw Exception("Error when reading file: $e");
-  }
-}
-
-class MyClass extends StatelessWidget {
-  const MyClass({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'ChuckNorrisJokesApp',
-      theme: ThemeData(
-        useMaterial3: true,
-        fontFamily: 'Kanit',
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        hoverColor: Colors.transparent,
-      ),
-      home: const HomePage(title: 'Tinder with Chuck'),
-    );
   }
 }
 
@@ -123,22 +104,20 @@ class _HomePageState extends State<HomePage> {
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple[400],
         title: Text(
-            language == 'en'
-                ? titles[pageIndex]
-                : russianTitles[pageIndex],
-            style: TextStyle(
-              fontSize: 30,
-              fontFamily: language == 'ru' ? 'Comfortaa' : 'Kanit',
-              color: Colors.white,
-            )),
+          language == Language.english
+              ? titles[pageIndex]
+              : russianTitles[pageIndex],
+          style: TextStyle(
+            fontSize: 30,
+            fontFamily: language == Language.russian ? 'Comfortaa' : 'Kanit',
+          ),
+        ),
         centerTitle: true,
       ),
       body: pages[pageIndex],
       floatingActionButton: pageIndex == 0
           ? FloatingActionButton(
-              backgroundColor: Colors.purple[400],
               onPressed: () {
                 Navigator.push(
                   context,
@@ -153,72 +132,31 @@ class _HomePageState extends State<HomePage> {
               ),
             )
           : null,
-      bottomNavigationBar: Container(
-        height: 50,
-        decoration: BoxDecoration(
-          color: Colors.purple[400],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              onPressed: () {
-                if (pageIndex != 0) {
-                  setState(() {
-                    pageIndex = 0;
-                  });
-                }
-              },
-              icon: Icon(
-                pageIndex == 0 ? Icons.home : Icons.home_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                if (pageIndex != 1) {
-                  setState(() {
-                    pageIndex = 1;
-                  });
-                }
-              },
-              icon: Icon(
-                pageIndex == 1 ? Icons.favorite : Icons.favorite_outline,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                if (pageIndex != 2) {
-                  setState(() {
-                    pageIndex = 2;
-                  });
-                }
-              },
-              icon: const Icon(
-                Icons.search_rounded,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-            IconButton(
-              icon: Icon(
-                pageIndex == 3 ? Icons.settings : Icons.settings_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
-              onPressed: () {
-                if (pageIndex != 3) {
-                  setState(() {
-                    pageIndex = 3;
-                  });
-                }
-              },
-            ),
-          ],
-        ),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            pageIndex = index;
+          });
+        },
+        selectedIndex: pageIndex,
+        destinations: const <Widget>[
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.favorite),
+            label: "Favorites",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.search),
+            label: "Search",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings),
+            label: "Settings",
+          ),
+        ],
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:chuck_norris_joke_app/settings_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -102,16 +103,14 @@ class _JokeScreenState extends State<JokeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(children: [
-        Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-        ),
         Center(
           child: ListView(
             children: <Widget>[
               //Widget for showing an image with Chuck Norris
-              SizedBox(height: 290, child: Image.asset(images[imageIndex])),
+              SizedBox(
+                height: 290,
+                child: Image.asset(images[imageIndex]),
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -161,7 +160,7 @@ class _JokeScreenState extends State<JokeScreen> {
                   padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.yellow[100],
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                   ),
                   child: FutureBuilder(
                     key: UniqueKey(),
@@ -187,7 +186,7 @@ class _JokeScreenState extends State<JokeScreen> {
                         } else {
                           return LanguageText(
                             text: ifStart ? _startMessage : _joke,
-                            size: language == 'en' ? 25 : 22,
+                            size: language == Language.english ? 25 : 22,
                           );
                         }
                       }
