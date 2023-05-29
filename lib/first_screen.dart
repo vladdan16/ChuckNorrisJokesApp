@@ -60,6 +60,7 @@ class MyClass extends StatelessWidget {
     return MaterialApp(
       title: 'ChuckNorrisJokesApp',
       theme: ThemeData(
+        useMaterial3: true,
         fontFamily: 'Kanit',
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
