@@ -57,7 +57,9 @@ class _JokesFilterState extends State<JokesFilter> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          language == Language.english ? 'Choose categories' : 'Выбор категорий',
+          language == Language.english
+              ? 'Choose categories'
+              : 'Выбор категорий',
           style: TextStyle(
             fontSize: language == Language.english ? 30 : 25,
             fontFamily: language == Language.english ? 'Kanit' : 'Comfortaa',
@@ -104,8 +106,9 @@ class _JokesFilterState extends State<JokesFilter> {
                             : russianCategories[index],
                         style: TextStyle(
                           fontSize: 25,
-                          fontFamily:
-                              language == Language.english ? 'KanitItalic' : 'Comfortaa',
+                          fontFamily: language == Language.english
+                              ? 'KanitItalic'
+                              : 'Comfortaa',
                         ),
                       ),
                     ],

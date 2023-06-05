@@ -111,7 +111,9 @@ class _SearchScreenState extends State<SearchScreen> {
                               subtitle: LanguageText(
                                 text: searchTerms[index],
                                 size: 15,
-                                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer,
                               ),
                               leading: const Icon(
                                 Icons.list,
